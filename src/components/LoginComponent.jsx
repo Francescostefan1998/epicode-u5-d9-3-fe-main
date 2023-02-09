@@ -1,29 +1,29 @@
-import { useState } from "react"
-import axios from "axios"
-import { Form, Button, Alert, Container, Row, Col } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
+import { useState } from "react";
+import axios from "axios";
+import { Form, Button, Alert, Container, Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const LoginComponent = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
-  const navigate = useNavigate()
-
-  const handleSubmit = async e => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  //j
+  const handleSubmit = async (e) => {
     try {
-      e.preventDefault()
+      e.preventDefault();
       const { data } = await axios.post("http://localhost:3001/users/login", {
         email,
         password,
-      })
-      toast("Login successfull! 💪", { autoClose: 1000 })
-      localStorage.setItem("accessToken", data.accessToken)
-      navigate("/users")
+      });
+      toast("Login successfull! 💪", { autoClose: 1000 });
+      localStorage.setItem("accessToken", data.accessToken);
+      navigate("/users");
     } catch (error) {
-      setError(error.response.data.message)
+      setError(error.response.data.message);
     }
-  }
+  };
   return (
     <Container fluid className="p-5 my-5">
       <Row>
@@ -36,13 +36,13 @@ const LoginComponent = () => {
         </Col>
 
         <Col col="4" md="6">
-          <Form onSubmit={e => handleSubmit(e)}>
+          <Form onSubmit={(e) => handleSubmit(e)}>
             <Form.Group className="mb-3">
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Enter email"
-                onChange={val => setEmail(val.currentTarget.value)}
+                onChange={(val) => setEmail(val.currentTarget.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3">
@@ -50,7 +50,7 @@ const LoginComponent = () => {
               <Form.Control
                 type="password"
                 placeholder="Password"
-                onChange={val => setPassword(val.currentTarget.value)}
+                onChange={(val) => setPassword(val.currentTarget.value)}
               />
             </Form.Group>
 
@@ -62,7 +62,11 @@ const LoginComponent = () => {
               <p className="text-center fw-bold mx-3 mb-0">OR</p>
             </div>
 
-            <Button className="mb-4 w-100" size="lg" style={{ backgroundColor: "#3b5998" }}>
+            <Button
+              className="mb-4 w-100"
+              size="lg"
+              style={{ backgroundColor: "#3b5998" }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -76,7 +80,11 @@ const LoginComponent = () => {
               Login with facebook
             </Button>
             <a href="http://localhost:3001/users/googleLogin">
-              <Button className="mb-4 w-100" size="lg" style={{ backgroundColor: "#55acee" }}>
+              <Button
+                className="mb-4 w-100"
+                size="lg"
+                style={{ backgroundColor: "#55acee" }}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -128,7 +136,7 @@ const LoginComponent = () => {
 
       <Row>{error && <Alert variant="danger">{error}</Alert>}</Row>
     </Container> */
-  )
-}
+  );
+};
 
-export default LoginComponent
+export default LoginComponent;
